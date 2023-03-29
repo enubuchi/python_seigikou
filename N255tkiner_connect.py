@@ -53,23 +53,38 @@ checksum = varhigh.get() + varlow.get()*2 + varstart.get()*4 + varend.get()*8
 
 if varhigh.get()==1:
     highdesuyo ="High"
+    if checksum>1:
+        highcut =","
+    else:
+        highcut =""
 else:
     highdesuyo =""
+    highcut =""
 
 if varlow.get()==1:
     lowdesuyo ="Low"
+    if checksum>3:
+        lowcut =","
+    else:
+        lowcut =""
 else:
-    lowdesuyo = ""
+    lowdesuyo =""
+    lowcut =""
 
 if varstart.get()==1:
     startdesuyo ="Open"
+    if checksum>7:
+        startcut =","
+    else:
+        startcut =""
 else:
-   startdesuyo = ""
+   startdesuyo =""
+   startcut =""
 
 if varend.get()==1:
     enddesuyo ="Close"
 else:
-    enddesuyo = ""
+    enddesuyo =""
     
 #print (checksum)
 
@@ -93,11 +108,13 @@ df.to_csv( os.path.dirname(__file__) + '/s_stock_data_'+ ticker_symbol + '.csv')
 #print(df_stock)
 #matplotlibで株価をグラフ化
 
-#値に応じて文字を連結させる手もある。
-#https://pycarnival.com/dict/
-
 if checksum!=0:
-    df[[highdesuyo+lowdesuyo+startdesuyo+enddesuyo]].head(90).plot(figsize=(16,8),fontsize=18)
+    concat = highdesuyo+highcut+lowdesuyo+lowcut+startdesuyo+startcut+enddesuyo
+    showit = concat.split(',')
+    #concatで文字列として結合した後、splitをかけて分割している。
+    df[showit].head(90).plot(figsize=(16,8),fontsize=18)
+
+
 else:
     root2 = Tk()
     root2.title('やり直し')
