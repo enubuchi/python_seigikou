@@ -21,7 +21,7 @@ def convert(in_file, out_file):
 
 
 def pdf_merger(out_pdf, pdfs):
-    merger = PyPDF2.PdfFileMerger()
+    merger = PyPDF2.PdfMerger()
 
     for pdf in pdfs:
         print(pdf)
